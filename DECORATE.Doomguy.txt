@@ -1,0 +1,31 @@
+actor Doomguy : PlayerPawn
+{
+	health 100
+	radius 22
+	player.movebob 0.96
+	player.viewheight 37
+	player.displayname "Doomguy"
+	player.startitem "Clip", 16
+	player.startitem "KZPistol"
+	player.startitem "KZKnife"
+	player.weaponslot 1, "KZKnife"
+	player.weaponslot 2, "KZPistol"
+	player.weaponslot 3, "KZMachineGun"
+	player.weaponslot 4, "KZGatlingGun"
+	player.damagescreencolor "FF 00 00"
+	//deathsound "kizohitler/death"
+	//painsound "kizohitler/pain"
+	
+	states
+	{
+	Spawn:
+	  TNT1 A -1
+	  stop
+	Pain: 
+	  TNT1 A 1 A_PlaySound("player/pain")
+	  goto Spawn
+	Missile:
+	  TNT1 A -1
+	  stop
+	}
+}

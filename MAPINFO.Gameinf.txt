@@ -1,6 +1,6 @@
 gameinfo
 {
 	
-	playerclasses = "KizoPlayer"
+	playerclasses = "Doomguy"
 
 }
