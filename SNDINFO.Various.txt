@@ -1,0 +1,9 @@
+//Player
+player/death			{ DSPLDETH ALPLDETH PCPYDETH }
+player/pain				{ DSPLPAIN ALPLPAIN PCPLPAIN }
+
+weapon/knife/attack		{ DSPUNCH ALKNFSWG PCKNFSWG }
+player/usefail			{ DSNOWAY DSNOWAY DSNOWAY }
+//Usefail not defined yet?
+
+weapon/pistol/attack    { DSPISTOL DSPISTOL DSPISTOL }

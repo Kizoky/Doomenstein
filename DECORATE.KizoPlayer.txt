@@ -1,0 +1,178 @@
+actor KizoPlayer : PlayerPawn
+{
+	health 100
+	radius 22
+	player.movebob 0.96
+	player.viewheight 37
+	player.displayname "Doomguy"
+	player.startitem "Clip", 16
+	player.startitem "KZPistol"
+	player.startitem "KZKnife"
+	player.weaponslot 1, "KZKnife"
+	player.weaponslot 2, "KZPistol"
+	player.weaponslot 3, "KZMachineGun"
+	player.weaponslot 4, "KZGatlingGun"
+	player.damagescreencolor "FF 00 00"
+	//deathsound "kizohitler/death"
+	//painsound "kizohitler/pain"
+	
+	states
+	{
+	Spawn:
+	  TNT1 A -1
+	  stop
+	Pain: 
+	  TNT1 A 1 A_PlaySound("player/pain")
+	  goto Spawn
+	Missile:
+	  TNT1 A -1
+	  stop
+	}
+}
+	
+actor KZPistol : Pistol replaces Pistol
+{
+	inventory.icon "PISTOL"
+	weapon.selectionorder 1900
+	attacksound "weapon/pistol/attack"
+	-WEAPON.NOAUTOFIRE
+	-WEAPON.DONTBOB
+   Weapon.BobRangeX 1.0
+   Weapon.BobRangeY 1.0
+   Weapon.BobSpeed 1.3
+   Weapon.BobStyle "Normal"
+	states
+	{
+		Ready:
+			PISG A 1 A_WeaponReady
+			loop
+	   Deselect:
+		    TNT1 A 0
+	        DeselectLoop:
+	        PISG A 0.5 A_Lower
+            Loop
+       Select:
+            PISG A 0.5 A_Raise
+	        Loop
+	     Fire:
+		    PISG A 3.5
+			//PISF A 1
+			PISG B 4.5 A_GunAttack Bright
+			PISG C 4
+			PISG B 3
+			goto Ready
+	}
+}
+
+actor KZKnife : Knife replaces Knife
+{
+	inventory.icon "KNIFE"
+	weapon.ammouse1 0
+	weapon.selectionorder 3700
+	attacksound "weapon/knife/attack"
+	-WEAPON.NOAUTOFIRE
+	+WEAPON.NOALERT
+	-WEAPON.DONTBOB
+   Weapon.BobRangeX 0.7
+   Weapon.BobRangeY 0.7
+   Weapon.BobSpeed 1.5
+   Weapon.BobStyle "Normal"
+	states
+	{
+		Ready:
+			PUNG A 1 A_WeaponReady
+			loop
+		Fire:
+			PUNG B 3
+			PUNG C 3 A_CustomPunch(random(0,15), true, CPF_ALWAYSPLAYSOUND)
+			PUNG D 3.5
+			PUNG C 3
+			PUNG B 3.5
+			goto Ready
+		Deselect:
+	    DeselectLoop:
+	        PUNG A 0.5 A_Lower
+            Loop
+        Select:
+            PUNG A 0.5 A_Raise
+	        Loop	
+	 	
+	}
+}
+
+actor KZMachineGun : MachineGun replaces MachineGun
+{
+	attacksound "weapon/machine/attack"
+	inventory.icon "MACHGUN"
+	inventory.pickupsound "weapon/machine/pickup"
+	weapon.selectionorder 1300
+	+INVENTORY.ALWAYSPICKUP
+	-WEAPON.DONTBOB
+   Weapon.BobRangeX 0.7
+   Weapon.BobRangeY 0.7
+   Weapon.BobSpeed 1.5
+   Weapon.BobStyle "Normal"
+	states
+	{
+		Spawn:
+			MGUN A -1
+			stop
+		Ready:
+			MCHG A 1 A_WeaponReady
+			loop
+		Fire:
+			MCHG B 3
+		Hold:
+			MCHG C 3 bright
+			MCHG D 3 A_GunAttack
+			MCHG E 3 A_ReFire
+			goto Ready
+		Deselect:
+	    DeselectLoop:
+	        MCHG A 0.5 A_Lower
+            Loop
+        Select:
+            MCHG A 0.5 A_Raise
+	        Loop
+	}
+}
+
+actor KZGatlingGun : GatlingGun replaces GatlingGun
+{
+	attacksound "weapon/gatling/attack"
+	inventory.icon "GATLGUN"
+	inventory.pickupsound "weapon/gatling/pickup"
+	weapon.selectionorder 700
+	-WEAPON.NOGRIN
+	+WEAPON.ALWAYSGRIN
+	+INVENTORY.ALWAYSPICKUP
+	-WEAPON.DONTBOB
+   Weapon.BobRangeX 0.7
+   Weapon.BobRangeY 0.7
+   Weapon.BobSpeed 1.5
+   Weapon.BobStyle "Normal"
+	states
+	{
+		Spawn:
+			CGUN A -1
+			stop
+		Ready:
+			CHGG A 1 A_WeaponReady
+			loop
+		Fire:
+			CHGG B 3
+		Hold:
+			CHGG C 3 bright
+			CHGG D 3 bright A_GunAttack
+			CHGG D 0 bright A_GunAttack
+			CHGG E 3 A_ReFire
+			goto Ready
+		Deselect:
+	    DeselectLoop:
+	        CHGG A 0.5 A_Lower
+            Loop
+        Select:
+            CHGG A 0.5 A_Raise
+	        Loop
+	}
+}

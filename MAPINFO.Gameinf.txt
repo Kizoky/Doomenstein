@@ -1,0 +1,6 @@
+gameinfo
+{
+	
+	playerclasses = "KizoPlayer"
+
+}
